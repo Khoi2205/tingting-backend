@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-app = FastAPI(title="TingTing Backend")
+app = FastAPI()
 
 class Message(BaseModel):
     user_id: int
@@ -13,15 +13,22 @@ class Message(BaseModel):
 async def webhook(msg: Message):
     text = msg.text.lower().strip()
     
-    if text in ["/start", "hi", "hello", "chào"]:
-        reply = "👋 Chào bạn! Đây là bot thử nghiệm thể tính tăng.\nBạn cần hỗ trợ gì?"
-    elif any(word in text for word in ["tăng", "tang", "kích", "to", "lon"]):
-        reply = "🔥 Tính năng tăng thể tính đang được kích hoạt...\n\nVui lòng chọn gói bạn quan tâm."
+    if text in ["/start", "hi", "hello", "chào", "menu"]:
+        reply = "👋 Chào bạn!\nChọn chức năng bên dưới:"
+        buttons = {
+            "inline_keyboard": [
+                [{"text": "🎲 Random tên", "url": "https://t.me/baokmnetbot?start=random"}],
+                [{"text": "✍️ Nhập tên", "url": "https://t.me/baokmnetbot?start=nhapten"}],
+                [{"text": "🔍 Kiểm tra tài khoản", "url": "https://t.me/baokmnetbot?start=check"}],
+                [{"text": "💸 Rút tiền", "url": "https://t.me/baokmnetbot?start=ruttien"}],
+                [{"text": "ℹ️ Thông tin", "url": "https://t.me/baokmnetbot?start=info"}]
+            ]
+        }
+        return {"reply": reply, "reply_markup": buttons}
+    
     else:
-        reply = "✅ Đã nhận tin nhắn của bạn!"
-
-    return {"reply": reply}
+        return {"reply": "✅ Đã nhận! Vui lòng chọn menu bên dưới."}
 
 @app.get("/")
 async def root():
-    return {"status": "Backend đang chạy tốt!"}
+    return {"status": "ok"}
