@@ -24,7 +24,8 @@ async def webhook(msg: Message):
                     [{"text": "📦 VA đã tạo"}],
                     [{"text": "ℹ️ Thông tin"}]
                 ],
-                "resize_keyboard": True
+                "resize_keyboard": True,
+                "one_time_keyboard": False
             }
         }
     
