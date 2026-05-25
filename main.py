@@ -14,20 +14,21 @@ async def webhook(msg: Message):
     
     if text in ["/start", "menu", "/menu", "chào"]:
         return {
-            "reply": "👋 Chào bạn!\nChọn chức năng bên dưới:",
+            "reply": "👋 Chào bạn!\nChọn chức năng bên dưới để chuyển sang bot chính:",
             "reply_markup": {
-                "inline_keyboard": [
-                    [{"text": "🎲 Random tên", "url": "https://t.me/baokmnetbot?start=random"}],
-                    [{"text": "✍️ Nhập tên", "url": "https://t.me/baokmnetbot?start=nhapten"}],
-                    [{"text": "🔍 Kiểm tra tài khoản", "url": "https://t.me/baokmnetbot?start=check"}],
-                    [{"text": "💸 Rút tiền", "url": "https://t.me/baokmnetbot?start=ruttien"}],
-                    [{"text": "📦 VA đã tạo", "url": "https://t.me/baokmnetbot?start=va"}],
-                    [{"text": "ℹ️ Thông tin", "url": "https://t.me/baokmnetbot?start=info"}]
-                ]
+                "keyboard": [
+                    [{"text": "🎲 Random tên"}],
+                    [{"text": "✍️ Nhập tên"}],
+                    [{"text": "🔍 Kiểm tra tài khoản"}],
+                    [{"text": "💸 Rút tiền"}],
+                    [{"text": "📦 VA đã tạo"}],
+                    [{"text": "ℹ️ Thông tin"}]
+                ],
+                "resize_keyboard": True
             }
         }
     
-    return {"reply": "✅ Đã nhận tin nhắn!"}
+    return {"reply": "✅ Đã nhận tin nhắn!\nGõ 'menu' để hiện menu."}
 
 @app.get("/")
 async def root():
